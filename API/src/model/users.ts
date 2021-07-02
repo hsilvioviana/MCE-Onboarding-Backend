@@ -84,3 +84,10 @@ export type usersInputDeleteDTO = {
    id: string,
    token: string
 }
+
+export type usersInputChangePasswordWithCodeDTO = {
+   
+   email: string,
+   code: string,
+   newPassword: string
+}
