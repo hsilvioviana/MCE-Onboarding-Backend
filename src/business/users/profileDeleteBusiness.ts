@@ -1,7 +1,7 @@
-import { deleteUser } from "../../data/users/deleteUser";
-import { getUserById } from "../../data/users/getUserById";
-import { usersInputDeleteDTO, USER_ROLES } from "../../model/users";
-import { getTokenData } from "../../services/authenticator";
+import { deleteUser } from "../../data/users/deleteUser"
+import { getUserById } from "../../data/users/getUserById"
+import { usersInputDeleteDTO, USER_ROLES } from "../../model/users"
+import { getTokenData } from "../../services/authenticator"
 
 
 export const profileDeleteBusiness = async (input: usersInputDeleteDTO) : Promise<void> => {

@@ -1,5 +1,5 @@
-import { user } from "../../model/users";
-import { connection } from "../connection";
+import { user } from "../../model/users"
+import { connection } from "../connection"
 
 
 export const getUserByEmail = async (email: string) : Promise<user> => {

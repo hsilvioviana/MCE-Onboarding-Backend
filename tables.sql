@@ -23,3 +23,9 @@ INSERT INTO MCE_Users VALUES (
 CURDATE(),
 CURDATE()
 );
+
+CREATE TABLE MCE_ResetPassword (
+code VARCHAR(64) NOT NULL,
+email VARCHAR(64),
+FOREIGN KEY (email) REFERENCES MCE_Users(email)
+);

@@ -14,10 +14,13 @@ export const usersRouter = Router()
 
 usersRouter.get("/profile", profile)
 usersRouter.get("/all", getUsers)
+
 usersRouter.post("/signup", signup)
 usersRouter.post("/login", login)
 usersRouter.post("/reset/password", resetPassword)
+
 usersRouter.put("/edit/info/:id", profileEditInfo)
 usersRouter.put("/edit/password/:id", profileEditPassword)
 usersRouter.put("/reset/password/:email", changePasswordWithCode)
+
 usersRouter.delete("/delete/:id", profileDelete)

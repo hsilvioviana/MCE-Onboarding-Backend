@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
-import { profileBusiness } from '../../business/users/profileBusiness'
-import { userProfile } from '../../model/users'
+import { Request, Response } from "express"
+import { profileBusiness } from "../../business/users/profileBusiness"
+import { userProfile } from "../../model/users"
 
 
 export const profile = async (req: Request, res: Response) : Promise<void> => {

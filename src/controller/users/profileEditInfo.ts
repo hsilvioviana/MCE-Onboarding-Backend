@@ -1,6 +1,6 @@
-import { Request, Response } from 'express'
-import { profileEditInfoBusiness } from '../../business/users/profileEditInfoBusiness'
-import { usersInputEditInfoDTO } from '../../model/users'
+import { Request, Response } from "express"
+import { profileEditInfoBusiness } from "../../business/users/profileEditInfoBusiness"
+import { usersInputEditInfoDTO } from "../../model/users"
 
 
 export const profileEditInfo = async (req: Request, res: Response) : Promise<void> => {

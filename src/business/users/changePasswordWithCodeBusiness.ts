@@ -1,9 +1,10 @@
-import { editUserPassword } from "../../data/users/editUserPassword";
-import { getCodeByEmail } from "../../data/users/getCodeByEmail";
-import { getUserByEmail } from "../../data/users/getUserByEmail";
-import { usersInputChangePasswordWithCodeDTO, USER_ROLES } from "../../model/users";
-import { generateToken } from "../../services/authenticator";
-import { compare, hash } from "../../services/hashManager";
+import { deleteCode } from "../../data/users/deleteCode"
+import { editUserPassword } from "../../data/users/editUserPassword"
+import { getCodeByEmail } from "../../data/users/getCodeByEmail"
+import { getUserByEmail } from "../../data/users/getUserByEmail"
+import { usersInputChangePasswordWithCodeDTO, USER_ROLES } from "../../model/users"
+import { generateToken } from "../../services/authenticator"
+import { compare, hash } from "../../services/hashManager"
 
 
 export const changePasswordWithCodeBusiness = async (input: usersInputChangePasswordWithCodeDTO) : Promise<string> => {
@@ -21,7 +22,7 @@ export const changePasswordWithCodeBusiness = async (input: usersInputChangePass
 
         const checkCode = await getCodeByEmail(input.email)
 
-        if (!await compare(input.code, checkCode.code)) {
+        if (!checkCode || !await compare(input.code, checkCode.code)) {
 
             throw new Error("Código Inválido")
         }
@@ -29,6 +30,8 @@ export const changePasswordWithCodeBusiness = async (input: usersInputChangePass
         await editUserPassword({ id: user.id, newPassword: await hash(input.newPassword) })
 
         const token = generateToken({ id: user.id, role: user.role })
+
+        await deleteCode(input.email)
 
         return token
     }
