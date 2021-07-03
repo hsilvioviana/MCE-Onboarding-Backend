@@ -1,3 +1,4 @@
+import { deleteCode } from "../../data/users/deleteCode"
 import { editUserInfo } from "../../data/users/editUserInfo"
 import { getUserByCpf } from "../../data/users/getUserByCpf"
 import { getUserByEmail } from "../../data/users/getUserByEmail"
@@ -16,10 +17,13 @@ export const profileEditInfoBusiness = async (input: usersInputEditInfoDTO):Prom
          throw new Error('Preencha os campos "name", "nickname", "email", "password" e "cpf"')
       }
 
+      const tokenData = getTokenData(input.token)
+
+      const checkToken = await getUserById(tokenData.id)
+      if (!checkToken) { throw new Error("Token Inválido") }
+
       const user = await getUserById(input.id)
       if(!user) { throw new Error('Usuário não encontrado') }
-
-      const tokenData = getTokenData(input.token)
 
       if (tokenData.id !== input.id && tokenData.role !== USER_ROLES.ADMIN) {
 
@@ -37,6 +41,8 @@ export const profileEditInfoBusiness = async (input: usersInputEditInfoDTO):Prom
       const cpfExists = await getUserByCpf(input.cpf)
       if(cpfExists && cpfExists.id !== input.id) 
       { throw new Error('Esse cpf já está sendo utilizado') }
+
+      await deleteCode(user.email)
 
       await editUserInfo(input)
    }

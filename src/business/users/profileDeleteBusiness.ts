@@ -1,3 +1,4 @@
+import { deleteCode } from "../../data/users/deleteCode"
 import { deleteUser } from "../../data/users/deleteUser"
 import { getUserById } from "../../data/users/getUserById"
 import { usersInputDeleteDTO, USER_ROLES } from "../../model/users"
@@ -8,15 +9,20 @@ export const profileDeleteBusiness = async (input: usersInputDeleteDTO) : Promis
 
     try {
 
+        const tokenData = getTokenData(input.token)
+
+        const checkToken = await getUserById(tokenData.id)
+        if (!checkToken) { throw new Error("Token Inválido") }
+
         const user = await getUserById(input.id)
         if(!user) { throw new Error('Usuário não encontrado') }
-  
-        const tokenData = getTokenData(input.token)
 
         if (tokenData.id !== input.id && tokenData.role !== USER_ROLES.ADMIN) {
 
             throw new Error('Você não pode deletar o perfil de outra pessoa')
         }
+
+        await deleteCode(user.email)
 
         await deleteUser(input.id)
     }

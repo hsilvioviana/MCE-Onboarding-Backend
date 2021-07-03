@@ -14,10 +14,13 @@ export const profileEditPasswordBusiness = async (input: usersInputEditPasswordD
             throw new Error('Preencha os campos "password" e "newPassword"')
         }
 
+        const tokenData = getTokenData(input.token)
+
+        const checkToken = await getUserById(tokenData.id)
+        if (!checkToken) { throw new Error("Token Inválido") }
+
         const user = await getUserById(input.id)
         if(!user) { throw new Error('Usuário não encontrado') }
-
-        const tokenData = getTokenData(input.token)
 
         if (tokenData.id !== input.id && tokenData.role !== USER_ROLES.ADMIN) {
 
