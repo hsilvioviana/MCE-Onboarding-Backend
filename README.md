@@ -78,6 +78,11 @@
 ## - Ver Perfil
 ### GET "/users/profile/:id"
 
+* Atenção
+
+        Usuários Normais só podem ver seu próprio perfil
+        Usuários Administradores podem ver qualquer perfil
+
 * Headers
 
         Authorization: token
@@ -234,6 +239,10 @@
 
 ## - Editar senha do perfil
 ### PUT "/users/edit/password/:id"
+
+* Atenção
+
+        Administradores não precisam fornecer a senha antiga para editar uma senha
 
 * Params
 

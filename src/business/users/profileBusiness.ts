@@ -9,10 +9,15 @@ export const profileBusiness = async (token: string, userId: string) : Promise<u
 
     try {
 
-        getTokenData(token)
+        const tokenData = getTokenData(token)
 
-        const checkToken = await getUserById(userId)
+        const checkToken = await getUserById(tokenData.id)
         if (!checkToken) { throw new Error("Token Inválido") }
+
+        if (tokenData.id !== userId &&tokenData.role !== "ADMIN") {
+
+            { throw new Error("Você não pode acessar o perfil de outra pessoa") }
+        }
 
         const user = await getProfile(userId)
 
