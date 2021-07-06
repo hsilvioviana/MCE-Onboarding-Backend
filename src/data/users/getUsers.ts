@@ -14,7 +14,7 @@ export const getUsers = async () : Promise<userProfile[]> => {
             
             id: user.id,
             name: user.name,
-            nickname: user.nickame,
+            nickname: user.nickname,
             email: user.email,
             cpf: user.cpf
         })

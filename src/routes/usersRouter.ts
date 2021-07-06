@@ -12,7 +12,7 @@ import { changePasswordWithCode } from "../controller/users/changePasswordWithCo
 
 export const usersRouter = Router()
 
-usersRouter.get("/profile", profile)
+usersRouter.get("/profile/:id", profile)
 usersRouter.get("/all", getUsers)
 
 usersRouter.post("/signup", signup)

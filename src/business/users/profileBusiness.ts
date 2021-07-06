@@ -5,16 +5,16 @@ import { getTokenData } from "../../services/authenticator"
 
 
 
-export const profileBusiness = async (token: string) : Promise<userProfile> => {
+export const profileBusiness = async (token: string, userId: string) : Promise<userProfile> => {
 
     try {
 
-        const id = getTokenData(token).id
+        getTokenData(token)
 
-        const checkToken = await getUserById(id)
+        const checkToken = await getUserById(userId)
         if (!checkToken) { throw new Error("Token Inválido") }
 
-        const user = await getProfile(id)
+        const user = await getProfile(userId)
 
         return user
     }

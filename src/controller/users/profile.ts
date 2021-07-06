@@ -8,8 +8,9 @@ export const profile = async (req: Request, res: Response) : Promise<void> => {
     try {
 
         const token = req.headers.authorization as string
+        const userId = req.params.id
 
-        const user: userProfile = await profileBusiness(token)
+        const user: userProfile = await profileBusiness(token, userId)
 
         res.status(200).send({ user })
     }
