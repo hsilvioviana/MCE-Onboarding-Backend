@@ -9,12 +9,12 @@ export const profileEditPasswordBusiness = async (input: usersInputEditPasswordD
 
    try {
 
-        if (!input.password || !input.newPassword) {
+        const tokenData = getTokenData(input.token)
+
+        if (!input.newPassword || (!input.password && tokenData.role !== "ADMIN")) {
         
             throw new Error('Preencha os campos "password" e "newPassword"')
         }
-
-        const tokenData = getTokenData(input.token)
 
         const checkToken = await getUserById(tokenData.id)
         if (!checkToken) { throw new Error("Token Inválido") }
@@ -27,7 +27,7 @@ export const profileEditPasswordBusiness = async (input: usersInputEditPasswordD
             throw new Error('Você não pode editar a senha de outra pessoa')
         }
 
-        if (!await compare(input.password, user.password))
+        if (!await compare(input.password, user.password) && tokenData.role !== "ADMIN")
         { throw new Error('Senha incorreta')}
 
         const passwordEdit: passwordEdit = { id: input.id, newPassword: await hash(input.newPassword) }
