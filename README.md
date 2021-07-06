@@ -3,7 +3,7 @@
 ## Funcionalidades
 - Cadastro
 - Login
-- Ver próprio perfil
+- Ver Perfil
 - Ver lista de perfis
 - Recuperar senha
 - Mudar senha com código de recuperação
@@ -75,8 +75,8 @@
 
 ---
 
-## - Ver próprio perfil
-### GET "/users/profile"
+## - Ver Perfil
+### GET "/users/profile/:id"
 
 * Headers
 
@@ -120,12 +120,14 @@
                 {
                     "id": "74820ab8...",
                     "name": "Administrador",
+                    "nickname": "admin_pedro",
                     "email": "admin@base.com",
                     "cpf": "000.000.000-00"
                 },
                 {
                     "id": "d57e4720...",
                     "name": "Silvio Viana",
+                    "nickname": "hsilvioviana",
                     "email": "silvio@email.com",
                     "cpf": "777.777.777-77"
                 }
