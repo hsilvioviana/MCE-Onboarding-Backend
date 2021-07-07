@@ -27,7 +27,7 @@ export const profileEditPasswordBusiness = async (input: usersInputEditPasswordD
             throw new Error('Você não pode editar a senha de outra pessoa')
         }
 
-        if (!await compare(input.password, user.password) && tokenData.role !== "ADMIN")
+        if (tokenData.role !== "ADMIN" && !await compare(input.password, user.password))
         { throw new Error('Senha incorreta')}
 
         const passwordEdit: passwordEdit = { id: input.id, newPassword: await hash(input.newPassword) }
